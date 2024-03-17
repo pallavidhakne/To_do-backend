@@ -1,6 +1,7 @@
 import Express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import taskrouter from "./routes/taskRoute.js";
 
 dotenv.config();
 const app = Express();
@@ -16,7 +17,11 @@ async function connectToDatabase() {
     console.log("Error occurs while connecting to MONGODB", err);
   }
 }
+
 connectToDatabase(); //function call
+//routers
+app.use("/", taskrouter);
+
 app.listen(port, () => {
   console.log(`Server is running on this port ${port}`);
 });

@@ -1,6 +1,6 @@
 import Express from "express";
 const router = Express.Router();
-import Task from "../model/taskModel";
+import Task from "../model/taskModel.js";
 router.post("/task", async (req, res) => {
   try {
     const newTask = await Task.createData(req.body);
