@@ -6,7 +6,7 @@ router.post("/task", async (req, res) => {
     const newTask = await Task.createData(req.body);
     res.status(201).json(newTask);
   } catch (error) {
-    res.send(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 router.get("/task", async (req, res) => {
