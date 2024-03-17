@@ -4,6 +4,7 @@ import Task from "../model/taskModel.js";
 
 //post request
 router.post("/task", async (req, res) => {
+  console.log(req.body);
   try {
     const newTask = await Task.create(req.body);
     res.status(201).json(newTask);

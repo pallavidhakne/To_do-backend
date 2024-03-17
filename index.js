@@ -6,6 +6,7 @@ import taskrouter from "./routes/taskRoute.js";
 dotenv.config();
 const app = Express();
 const port = 3000;
+app.use(Express.json());
 app.get("/", (req, res) => {
   res.send("hello welcome to the TO-do list project");
 });
