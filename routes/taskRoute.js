@@ -13,15 +13,36 @@ router.post("/task", async (req, res) => {
   }
 });
 //get request
+// router.get("/task", async (req, res) => {
+//   try {
+//     const allTask = await Task.find();
+//     res.json(allTask);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 router.get("/task", async (req, res) => {
   try {
-    const allTask = await Task.find();
-    res.json(allTask);
+    const { completed, sortByDate } = req.query;
+    let query = {};
+    let sortOptions = {};
+
+    // Filter by completion status if provided
+    if (completed) {
+      query.completed = completed === "true";
+    }
+
+    // Determine sorting order
+    if (sortByDate) {
+      sortOptions.date = sortByDate === "desc" ? -1 : 1;
+    }
+
+    const tasks = await Task.find(query).sort(sortOptions);
+    res.json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
-
 //for specific data
 router.get("/task/:id", async (req, res) => {
   try {
