@@ -2,6 +2,7 @@ import Express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import taskrouter from "./routes/taskRoute.js";
+import deleteOldTasks from "./taskCleanUp.js";
 
 dotenv.config();
 const app = Express();
@@ -18,8 +19,13 @@ async function connectToDatabase() {
     console.log("Error occurs while connecting to MONGODB", err);
   }
 }
+async function initializeApp() {
+  await connectToDatabase();
+  deleteOldTasks();
+  console.log("Cron job for deleting old tasks initialized.");
+}
 
-connectToDatabase(); //function call
+initializeApp();
 //routers
 app.use("/", taskrouter);
 

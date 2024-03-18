@@ -24,6 +24,7 @@ router.post("/task", async (req, res) => {
 router.get("/task", async (req, res) => {
   try {
     const { completed, sortByDate } = req.query;
+    //console.log(`req query is ${req.query}`);
     let query = {};
     let sortOptions = {};
 
